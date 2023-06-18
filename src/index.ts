@@ -4,6 +4,8 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import cors from 'cors'
+import mongoose from 'mongoose'
+
 console.log("Hello node");
 
 
@@ -17,3 +19,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 const server = http.createServer(app);
+
+server.listen(8000,()=>{
+    console.log("Server is running on port " + 8000);
+}) 
+mongoose.Promise = Promise;
+mongoose.connect(process.env.DATABASE_URL)
+
+mongoose.connection.on('error',(error : Error)=> console.log(error))
